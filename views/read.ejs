@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <form method="get" style="display: flex; justify-content: center;">
+        <div style="width: 80%;">
+            <h1 style="margin: 30px; margin-bottom:0; font-family: serif; font-size: 70px;">
+                <%= data.title %>
+            </h1>
+            <div class="col-auto d-none d-lg-block"
+                style="height:400px; width:350px; background-color: black; border-radius: 15px; float: left; margin: 40px;">
+                <img src="https://covers.openlibrary.org/b/isbn/<%=data.isbn%>-L.jpg" width="100%" height="100%"
+                    style="border-radius: 15px;">
+            </div>
+            <div style="margin-top: 40px;">
+                <h3 style="font-family: serif;">Description:</h3>
+                <p class="card-text mb-3" style="text-align: justify;">
+                    <%= data.description %>
+                </p>
+                <strong class="d-inline-block mb-2 text-primary-emphasis"
+                    style="font-family: serif; font-size:17px;"><u>Reading</u>: <%= new Date() %></strong>
+                <p class="card-text mb-1">
+                    <strong class="d-inline-block mb-2 text-primary-emphasis"><u>Reading Experience</u>
+                    </strong>:
+                    <%=data.rating %>/5
+                </p>
+            </div>
+            <div style="margin-top: 10px; clear: left; margin-left: 50px;">
+                <h2 style="font-family: serif;">My Notes:</h2>
+                <p style="text-align: justify;">
+                    <%= data.notes %>
+                </p>
+            </div>
+        </div>
+    </form>
+    <!-- Home button -->
+    <button type="submit" class="btn btn-outline-dark" style="margin-left:13.7%; margin-top: 20px;"
+        onclick="location.href='/'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-house" viewBox="0 0 16 16">
+            <path
+                d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+        </svg> Home Page</button>
+    <%- include("partials/footer.ejs") %>
+
+</body>
+
+</html>

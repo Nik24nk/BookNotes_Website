@@ -1,0 +1,117 @@
+<%- include("partials/header.ejs") %>
+
+    <body class="gradient-background">
+        <!-- Header here.... -->
+        <section style="display: flex; justify-content: center; margin-top: 0;">
+            <div class="px-4 pt-5 my-5 text-center border-bottom"
+                style="width:80%; background-color: white; border-radius: 15px; filter: drop-shadow(-3px -3px 3px rgb(68, 60, 60));">
+                <h1 class="display-4 fw-bold text-body-emphasis">Remembering Books</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead mb-4">I have this fantastic website where i have all the non-fiction books i
+                        had read, my notes, my ratings and when i read them. The books are sortable by rating, recency
+                        and title.</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+                        <button type="button" class="btn btn-outline-primary btn-lg px-4 me-sm-3"
+                            onclick="location.href='/write'">+
+                            Write Notes</button>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN FUNCTIONALITY HERE -->
+        <% if(locals.data){ %>
+
+            <!-- Sorting button -->
+            <form action="/sorting" method="post"
+                style="margin-left:10%; margin-bottom: 0px; background-color:#fff; border-radius: 40%; margin-right: 10%;filter: drop-shadow(-3px -3px 3px gray); display: flex; justify-content: center; gap: 7px;"
+                class="gradient">
+                <input type="radio" id="html" name="recent" value="Recent" onchange="this.form.submit()">
+                <label for="html"><strong>Recent</strong></label>
+                <input type="radio" id="css" name="rating" value="Rating" onchange="this.form.submit()">
+                <label for="css"><strong>Rating</strong></label>
+            </form>
+            <% for(i=0;i<data.length;i++){ %>
+                <section style="display: flex; justify-content: center; margin-top: 0;">
+                    <div style="width:80%; ">
+                        <!-- Refresh, Edit and Delete Buttons here -->
+                        <div
+                            style="display:flex; justify-content: right; margin-right: 10px; gap: 5px; margin-top: 10px; margin-bottom: 4px;">
+                            <!-- Edit button -->
+                            <button onclick="location.href='/edit?id=<%=i %>'" type="button"
+                                class="btn btn-outline-light"
+                                style="width: 35px; height: 35px;filter: drop-shadow(-3px -3px 3px blue);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="20px" height="20" fill="currentColor"
+                                    class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                                </svg></button>
+
+                            <!-- Delete button -->
+                            <button onclick="location.href='/delete?id=<%= data[i].id %>'" class="btn btn-outline-light"
+                                style="width: 35px; height: 35px;filter: drop-shadow(-3px -3px 3px red);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                </svg></button>
+                        </div>
+                        <!--    Notes viewing code here -->
+                        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative "
+                            style="height: 70vh;background-color: #fff;filter: drop-shadow(-3px -3px 3px rgb(68, 60, 60));">
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
+                                <h3 class="mb-0">
+                                    <strong class="d-inline-block mb-2 text-primary-emphasis">
+                                        <%= data[i].title %>
+                                    </strong>
+                                </h3>
+                                <span style="color: #1d1b1a; font-weight: bolder; margin-bottom: 10px;">by <%=
+                                        data[i].author %></span>
+                                <div class="mb-1 text-body-secondary"> <strong
+                                        class="d-inline-block mb-2 text-primary-emphasis">Finished Reading:</strong>
+                                    <%= data[i].date %>
+                                </div>
+                                <p class="card-text mb-auto">
+                                    <% if(data[i].description.length>= 601){ %>
+                                        <%const des=data[i].description.slice(0,600); %>
+                                            <p>
+                                                <%= des %>. . . . . . .
+                                            </p>
+                                            <% } else{ %>
+                                                <%= data[i].description %>
+                                                    <% } %>
+                                </p>
+                                <!-- Reading Button -->
+                                <div>
+                                    <p class="card-text mb-1">
+                                        <strong class="d-inline-block mb-2 text-primary-emphasis">Reading Experience:
+                                        </strong>
+                                        <%=data[i].rating %>/5
+                                    </p>
+                                    <a href="/read/<%=i %>" class="icon-link gap-1 icon-link-hover stretched-link mb-2"
+                                        style="font-size: 15px;">
+                                        Continue reading
+                                        <svg class="bi">
+                                            <use xlink:href="#chevron-right"></use>
+                                        </svg>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="col-auto d-none d-lg-block" style="height: 100%; width: 40% ;">
+                                <img src="https://covers.openlibrary.org/b/isbn/<%=data[i].isbn%>-L.jpg" width="100%"
+                                    height="100%">
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <% }} %>
+
+                    <%- include("partials/footer.ejs") %>
+    </body>
+
+
+    </html>
